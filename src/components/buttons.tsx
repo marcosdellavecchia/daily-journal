@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { Pressable } from 'react-native';
-import { Colors } from '../core/colors';
 import styled from 'styled-components';
-import { BodyBold } from '../core/typography';
-import GoogleIcon from '../../assets/icons/google.svg';
-import FacebookIcon from '../../assets/icons/facebook.svg';
+
+import { Colors } from '../core/colors';
+import { BodyBold, BodyBoldAccent } from '../core/typography';
 
 /*
  * Types
@@ -14,28 +12,34 @@ type PrimaryButtonProps = {
   label: string;
   accessibilityLabel: string;
   onPress: () => void;
-  icon?: SocialIcon;
 };
-
-export enum SocialIcon {
-  GOOGLE = 'GoogleIcon',
-  FACEBOOK = 'FacebookIcon',
-}
 
 /*
  * Styled components
  */
 
-const Button = styled.TouchableOpacity`
+const PrimaryButtonTouchable = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: ${Colors.DARK_GRAY};
+  background-color: ${Colors.ACCENT};
   padding: 10px;
-  margin: 10px;
+  margin: 8px;
   border-radius: 5px;
   elevation: 3;
-  width: 200px;
+  width: 90%;
+  height: 50px;
+`;
+
+const SecondaryButtonTouchable = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 8px;
+  elevation: 3;
+  width: 90%;
+  height: 50px;
 `;
 
 /*
@@ -46,21 +50,30 @@ export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
   label,
   accessibilityLabel,
   onPress,
-  icon,
 }) => {
   return (
-    <Button
+    <PrimaryButtonTouchable
       activeOpacity={0.5}
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
     >
-      {icon === SocialIcon.GOOGLE && (
-        <GoogleIcon width={18} height={18} fill={Colors.WHITE} />
-      )}
-      {icon === SocialIcon.FACEBOOK && (
-        <FacebookIcon width={18} height={18} fill={Colors.WHITE} />
-      )}
-      <BodyBold> {label}</BodyBold>
-    </Button>
+      <BodyBold> {label.toUpperCase()}</BodyBold>
+    </PrimaryButtonTouchable>
+  );
+};
+
+export const SecondaryButton: FunctionComponent<PrimaryButtonProps> = ({
+  label,
+  accessibilityLabel,
+  onPress,
+}) => {
+  return (
+    <SecondaryButtonTouchable
+      activeOpacity={0.5}
+      accessibilityLabel={accessibilityLabel}
+      onPress={onPress}
+    >
+      <BodyBoldAccent> {label.toUpperCase()}</BodyBoldAccent>
+    </SecondaryButtonTouchable>
   );
 };

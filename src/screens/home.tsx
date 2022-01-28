@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 import { Colors } from '../../src/core/colors';
 import { Body1, H1 } from '../../src/core/typography';
 import { Spacer } from '../../src/components/spacer';
-import { PrimaryButton, SocialIcon } from '../../src/components/buttons';
+import { PrimaryButton, SecondaryButton } from '../../src/components/buttons';
 
 /*
  * Types
@@ -44,23 +43,17 @@ export const Home: FunctionComponent<HomeProps> = ({
       <H1>Aurelius</H1>
       <Spacer size="xs" />
       <Body1>Quick journaling to declutter your mind.</Body1>
-      <Spacer />
+      <Spacer size="xl" />
       <PrimaryButton
-        label="Sign in with Google"
-        accessibilityLabel="Sign in with Google"
-        onPress={() => navigate('LoginGoogle')}
-        icon={SocialIcon.GOOGLE}
+        label="Register"
+        accessibilityLabel="Register"
+        onPress={() => navigate('Register')}
       />
-      <PrimaryButton
-        label="Sign in with Facebook"
-        accessibilityLabel="Sign in with Facebook"
-        onPress={() => navigate('LoginFacebook')}
-        icon={SocialIcon.FACEBOOK}
+      <SecondaryButton
+        label="Log in"
+        accessibilityLabel="Log in"
+        onPress={() => navigate('Login')}
       />
-      <Spacer size="xs" />
-      <TouchableOpacity onPress={() => navigate('LoginEmail')}>
-        <Body1>Or use your email address</Body1>
-      </TouchableOpacity>
     </Container>
   );
 };

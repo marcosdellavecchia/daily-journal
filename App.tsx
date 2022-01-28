@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { Platform } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { Colors } from './src/core/colors';
 import { Home } from './src/screens/home';
-import { LoginEmail } from './src/screens/login/login-email';
-import { LoginGoogle } from './src/screens/login/login-google';
-import { LoginFacebook } from './src/screens/login/login-facebook';
+import { Login } from './src/screens/login';
+import { Register } from './src/screens/register';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -32,14 +33,31 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={Home} />
         </Stack.Group>
-        <Stack.Group screenOptions={{ presentation: 'modal' }}>
-          <Stack.Screen name="LoginEmail" component={LoginEmail} />
-          <Stack.Screen name="LoginGoogle" component={LoginGoogle} />
-          <Stack.Screen name="LoginFacebook" component={LoginFacebook} />
+        <Stack.Group
+          screenOptions={{
+            headerStyle: {
+              backgroundColor:
+                Platform.OS === 'ios' ? Colors.DARK_GRAY : Colors.ACCENT,
+            },
+            headerTintColor:
+              Platform.OS === 'ios' ? Colors.WHITE : Colors.BLACK,
+            headerBackTitleVisible: false,
+          }}
+        >
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ title: 'Log in' }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{ title: 'Register' }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

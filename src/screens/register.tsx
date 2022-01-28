@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components/native';
 
-import { Colors } from '../../core/colors';
-import { H1 } from '../../core/typography';
+import { Colors } from '../core/colors';
+import { H1 } from '../core/typography';
 
 const Container = styled.View`
   flex: 1;
@@ -11,10 +11,10 @@ const Container = styled.View`
   justify-content: center;
 `;
 
-export const LoginEmail: FunctionComponent = () => {
+export const Register: FunctionComponent = () => {
   return (
     <Container>
-      <H1>Login with email</H1>
+      <H1>Register screen</H1>
     </Container>
   );
 };
