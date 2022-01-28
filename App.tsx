@@ -1,23 +1,13 @@
-import styled from 'styled-components/native';
-import * as Font from 'expo-font';
-import { Colors } from './src/core/colors';
-import { Body1, H1 } from './src/core/typography';
-import AppLoading from 'expo-app-loading';
 import React, { useState } from 'react';
-import { Spacer } from './src/components/spacer';
-import { PrimaryButton, SocialIcon } from './src/components/buttons';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${Colors.BLACK};
-  align-items: center;
-  justify-content: center;
-`;
-
-const HomeImage = styled.Image`
-  height: 350px;
-  width: 350px;
-`;
+import { Home } from './src/screens/home';
+import { LoginEmail } from './src/screens/login/login-email';
+import { LoginGoogle } from './src/screens/login/login-google';
+import { LoginFacebook } from './src/screens/login/login-facebook';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -25,6 +15,8 @@ const fetchFonts = () => {
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
   });
 };
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -39,26 +31,17 @@ export default function App() {
   }
 
   return (
-    <Container>
-      <HomeImage source={require('./assets/images/home-logo.webp')} />
-      <H1>Aurelius</H1>
-      <Spacer size="xs" />
-      <Body1>Quick journaling to declutter your mind.</Body1>
-      <Spacer />
-      <PrimaryButton
-        label="Sign in with Google"
-        accessibilityLabel="Sign in with Google"
-        onPress={() => {}}
-        icon={SocialIcon.GOOGLE}
-      />
-      <PrimaryButton
-        label="Sign in with Facebook"
-        accessibilityLabel="Sign in with Facebook"
-        onPress={() => {}}
-        icon={SocialIcon.FACEBOOK}
-      />
-      <Spacer size="xs" />
-      <Body1>Or use your email address</Body1>
-    </Container>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen name="LoginEmail" component={LoginEmail} />
+          <Stack.Screen name="LoginGoogle" component={LoginGoogle} />
+          <Stack.Screen name="LoginFacebook" component={LoginFacebook} />
+        </Stack.Group>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

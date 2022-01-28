@@ -26,7 +26,7 @@ export enum SocialIcon {
  * Styled components
  */
 
-const Button = styled.Pressable`
+const Button = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -49,7 +49,11 @@ export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
   icon,
 }) => {
   return (
-    <Button accessibilityLabel={accessibilityLabel} onPress={onPress}>
+    <Button
+      activeOpacity={0.5}
+      accessibilityLabel={accessibilityLabel}
+      onPress={onPress}
+    >
       {icon === SocialIcon.GOOGLE && (
         <GoogleIcon width={18} height={18} fill={Colors.WHITE} />
       )}
