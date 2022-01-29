@@ -2,9 +2,10 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components/native';
 
 import { Colors } from '../../src/core/colors';
-import { Body1, H1 } from '../../src/core/typography';
+import { Body1, Body2, H1 } from '../../src/core/typography';
 import { Spacer } from '../../src/components/spacer';
 import { PrimaryButton, SecondaryButton } from '../../src/components/buttons';
+import { TouchableOpacity } from 'react-native';
 
 /*
  * Types
@@ -54,6 +55,9 @@ export const Home: FunctionComponent<HomeProps> = ({
         accessibilityLabel="Log in"
         onPress={() => navigate('Login')}
       />
+      <TouchableOpacity onPress={() => navigate('Dashboard')}>
+        <Body2>Or press here if you are dev.</Body2>
+      </TouchableOpacity>
     </Container>
   );
 };

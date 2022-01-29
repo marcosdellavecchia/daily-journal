@@ -1,14 +1,17 @@
+import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Colors } from './src/core/colors';
 import { Home } from './src/screens/home';
 import { Login } from './src/screens/login';
 import { Register } from './src/screens/register';
+import { Dashboard } from './src/routing/dashboard';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -18,6 +21,7 @@ const fetchFonts = () => {
 };
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -56,8 +60,11 @@ export default function App() {
           <Stack.Screen
             name="Register"
             component={Register}
-            options={{ title: 'Register' }}
+            options={{ title: 'Register new account' }}
           />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Dashboard" component={Dashboard} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
