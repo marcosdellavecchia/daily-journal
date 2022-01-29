@@ -36,7 +36,7 @@ const HomeImage = styled.Image`
  */
 
 export const Home: FunctionComponent<HomeProps> = ({
-  navigation: { navigate },
+  navigation: { navigate, reset },
 }) => {
   return (
     <Container>
@@ -55,7 +55,9 @@ export const Home: FunctionComponent<HomeProps> = ({
         accessibilityLabel="Log in"
         onPress={() => navigate('Login')}
       />
-      <TouchableOpacity onPress={() => navigate('LoggedStack')}>
+      <TouchableOpacity
+        onPress={() => reset({ index: 0, routes: [{ name: 'LoggedStack' }] })}
+      >
         <Body2>Or press here if you are dev.</Body2>
       </TouchableOpacity>
     </Container>

@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 export const UnloggedStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator>
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="LoggedStack" component={LoggedStack} />

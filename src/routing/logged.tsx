@@ -19,7 +19,9 @@ function CustomDrawerContent(props) {
       <DrawerItemList {...props} />
       <DrawerItem
         label="Log out"
-        onPress={() => alert('TODO: Log out')}
+        onPress={() =>
+          props.navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+        }
         inactiveTintColor={Colors.WHITE}
       />
     </DrawerContentScrollView>
