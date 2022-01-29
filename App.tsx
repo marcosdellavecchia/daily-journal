@@ -1,17 +1,11 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { Colors } from './src/core/colors';
-import { Home } from './src/screens/home';
-import { Login } from './src/screens/login';
-import { Register } from './src/screens/register';
-import { Dashboard } from './src/routing/dashboard';
+import { UnloggedStack } from './src/routing/unlogged';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -20,8 +14,7 @@ const fetchFonts = () => {
   });
 };
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const MainStack = createNativeStackNavigator();
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -37,36 +30,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Group screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Group>
-        <Stack.Group
-          screenOptions={{
-            headerStyle: {
-              backgroundColor:
-                Platform.OS === 'ios' ? Colors.DARK_GRAY : Colors.ACCENT,
-            },
-            headerTintColor:
-              Platform.OS === 'ios' ? Colors.WHITE : Colors.BLACK,
-            headerBackTitleVisible: false,
-          }}
-        >
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ title: 'Log in' }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{ title: 'Register new account' }}
-          />
-        </Stack.Group>
-        <Stack.Group screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
-        </Stack.Group>
-      </Stack.Navigator>
+      <MainStack.Navigator screenOptions={{ headerShown: false }}>
+        <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
+      </MainStack.Navigator>
     </NavigationContainer>
   );
 }

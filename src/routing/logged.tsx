@@ -26,7 +26,7 @@ function CustomDrawerContent(props) {
   );
 }
 
-export const Dashboard: FunctionComponent = () => {
+export const LoggedStack: FunctionComponent = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}

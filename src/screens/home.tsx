@@ -55,7 +55,7 @@ export const Home: FunctionComponent<HomeProps> = ({
         accessibilityLabel="Log in"
         onPress={() => navigate('Login')}
       />
-      <TouchableOpacity onPress={() => navigate('Dashboard')}>
+      <TouchableOpacity onPress={() => navigate('LoggedStack')}>
         <Body2>Or press here if you are dev.</Body2>
       </TouchableOpacity>
     </Container>
