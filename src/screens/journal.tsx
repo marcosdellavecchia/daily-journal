@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
-import { Body1, H2 } from '../core/typography';
+import { Body1 } from '../core/typography';
+import { SecondaryButton } from '../components/buttons';
 
 /*
  * Types
@@ -23,8 +24,16 @@ const Container = styled.View`
   flex: 1;
   background-color: ${Colors.BLACK};
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   padding-top: 25px;
+  padding-bottom: 50px;
+`;
+
+const NoteContainer = styled.View`
+  background-color: ${Colors.DARK_GRAY};
+  margin-vertical: 8px;
+  padding: 10px;
+  border-radius: 8px;
 `;
 
 /*
@@ -54,19 +63,24 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
         });
       }}
     >
-      <Body1>{item}</Body1>
+      <NoteContainer>
+        <Body1>{item}</Body1>
+      </NoteContainer>
     </TouchableOpacity>
   );
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigation.navigate('CreateNote')}>
-        <H2>Add new entry</H2>
-      </TouchableOpacity>
       <FlatList
         data={notes.reverse()}
         renderItem={renderItem}
-        keyExtractor={(item, index) => item.index}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      <SecondaryButton
+        label="Add new entry"
+        accessibilityLabel="Add new entry"
+        onPress={() => navigation.navigate('CreateNote')}
+        oversized
       />
     </Container>
   );

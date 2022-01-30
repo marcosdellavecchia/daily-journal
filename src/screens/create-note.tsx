@@ -3,8 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
-import { H2 } from '../core/typography';
 import { PrimaryButton } from '../components/buttons';
+import { Spacer } from '../components/spacer';
+import { getCurrentDate } from '../core/helpers';
 
 /*
  * Types
@@ -26,6 +27,15 @@ const Container = styled.View`
   padding-top: 25px;
 `;
 
+const EntryTextContainer = styled.View`
+  background-color: ${Colors.DARK_GRAY};
+  margin: 8px;
+  padding: 10px;
+  width: 90%;
+  height: 30%;
+  border-radius: 8px;
+`;
+
 const EntryTextField = styled.TextInput`
   color: ${Colors.WHITE};
   font-size: 14px;
@@ -39,7 +49,8 @@ const EntryTextField = styled.TextInput`
 export const CreateNote: FunctionComponent<CreateNoteProps> = ({
   navigation,
 }) => {
-  const [note, setNote] = useState('');
+  const noteDate = getCurrentDate();
+  const [note, setNote] = useState(`${noteDate} \n \n`);
 
   const saveNote = async () => {
     const value = await AsyncStorage.getItem('NOTES');
@@ -48,19 +59,21 @@ export const CreateNote: FunctionComponent<CreateNoteProps> = ({
     await AsyncStorage.setItem('NOTES', JSON.stringify(n)).then(() =>
       navigation.navigate('Journal'),
     );
-    setNote('');
+    setNote(`${noteDate} \n \n`);
   };
 
   return (
     <Container>
-      <H2>New journal entry</H2>
-      <EntryTextField
-        value={note}
-        onChangeText={setNote}
-        multiline={true}
-        autoFocus
-        selectionColor={Colors.WHITE}
-      />
+      <EntryTextContainer>
+        <EntryTextField
+          value={note}
+          onChangeText={setNote}
+          multiline={true}
+          autoFocus
+          selectionColor={Colors.WHITE}
+        />
+      </EntryTextContainer>
+      <Spacer />
       <PrimaryButton
         label="Add new entry"
         accessibilityLabel="Add new entry"

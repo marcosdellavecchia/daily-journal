@@ -4,8 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
-import { Body1, H2 } from '../core/typography';
+import { Body1 } from '../core/typography';
 import { SecondaryButton } from '../components/buttons';
+import { Spacer } from '../components/spacer';
 
 /*
  * Types
@@ -26,6 +27,15 @@ const Container = styled.View`
   align-items: center;
   justify-content: flex-start;
   padding-top: 25px;
+`;
+
+const SingleNoteContainer = styled.View`
+  background-color: ${Colors.DARK_GRAY};
+  margin: 8px;
+  padding: 10px;
+  width: 90%;
+  height: 30%;
+  border-radius: 8px;
 `;
 
 /*
@@ -60,8 +70,10 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
 
   return (
     <Container>
-      <H2>View Entry</H2>
-      <Body1 style={{ fontSize: 22, margin: 20 }}>{singleNote}</Body1>
+      <SingleNoteContainer>
+        <Body1>{singleNote}</Body1>
+      </SingleNoteContainer>
+      <Spacer />
       <SecondaryButton
         label="Delete"
         accessibilityLabel="Delete"

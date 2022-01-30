@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { Colors } from '../core/colors';
-import { BodyBold, BodyBoldAccent } from '../core/typography';
+import { Body2Bold, BodyBoldAccent } from '../core/typography';
 
 /*
  * Types
@@ -12,6 +12,7 @@ type PrimaryButtonProps = {
   label: string;
   accessibilityLabel: string;
   onPress: () => void;
+  oversized?: boolean;
 };
 
 /*
@@ -50,6 +51,7 @@ export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
   label,
   accessibilityLabel,
   onPress,
+  oversized,
 }) => {
   return (
     <PrimaryButtonTouchable
@@ -57,7 +59,7 @@ export const PrimaryButton: FunctionComponent<PrimaryButtonProps> = ({
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
     >
-      <BodyBold> {label.toUpperCase()}</BodyBold>
+      <Body2Bold> {label.toUpperCase()}</Body2Bold>
     </PrimaryButtonTouchable>
   );
 };
@@ -66,6 +68,7 @@ export const SecondaryButton: FunctionComponent<PrimaryButtonProps> = ({
   label,
   accessibilityLabel,
   onPress,
+  oversized,
 }) => {
   return (
     <SecondaryButtonTouchable
@@ -73,7 +76,14 @@ export const SecondaryButton: FunctionComponent<PrimaryButtonProps> = ({
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
     >
-      <BodyBoldAccent> {label.toUpperCase()}</BodyBoldAccent>
+      {oversized ? (
+        <BodyBoldAccent style={{ fontSize: 18 }}>
+          {' '}
+          {label.toUpperCase()}
+        </BodyBoldAccent>
+      ) : (
+        <BodyBoldAccent> {label.toUpperCase()}</BodyBoldAccent>
+      )}
     </SecondaryButtonTouchable>
   );
 };

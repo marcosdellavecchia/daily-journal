@@ -25,7 +25,14 @@ export const Body2 = styled.Text`
   color: ${Colors.WHITE};
 `;
 
-export const BodyBold = styled.Text`
+export const Body1Bold = styled.Text`
+  font-size: 14px;
+  font-family: 'open-sans-bold'
+  letter-spacing: 0.5px;
+  color: ${Colors.WHITE};
+`;
+
+export const Body2Bold = styled.Text`
   font-size: 16px;
   font-family: 'open-sans-bold'
   letter-spacing: 0.5px;
