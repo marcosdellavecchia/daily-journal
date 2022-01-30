@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 
@@ -6,6 +6,10 @@ import { Colors } from '../core/colors';
 import { Body2 } from '../core/typography';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
+
+/*
+ * Styled components
+ */
 
 const Container = styled.View`
   flex: 1;
@@ -36,7 +40,11 @@ const Input = styled.TextInput`
   color: ${Colors.WHITE};
 `;
 
-export const Login = () => {
+/*
+ * Login screen
+ */
+
+export const Login: FunctionComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

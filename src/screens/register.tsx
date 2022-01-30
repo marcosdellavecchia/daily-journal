@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 
@@ -6,6 +6,10 @@ import { Colors } from '../core/colors';
 import { Body2 } from '../core/typography';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
+
+/*
+ * Styled components
+ */
 
 const Container = styled.View`
   flex: 1;
@@ -36,7 +40,15 @@ const Input = styled.TextInput`
   color: ${Colors.WHITE};
 `;
 
-export const Register = () => {
+const PrivacyDisclaimerContainer = styled.TouchableOpacity`
+  width: 70%;
+`;
+
+/*
+ * Register screen
+ */
+
+export const Register: FunctionComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -59,13 +71,15 @@ export const Register = () => {
           onChangeText={(password) => setPassword(password)}
         />
       </InputContainer>
-      <TouchableOpacity>
-        <Body2>You accept our privacy policy.</Body2>
-      </TouchableOpacity>
+      <PrivacyDisclaimerContainer>
+        <Body2 style={{ textAlign: 'center' }}>
+          By pressing "Create Account" you accept our privacy policy.
+        </Body2>
+      </PrivacyDisclaimerContainer>
       <Spacer size="l" />
       <PrimaryButton
-        label="Log in"
-        accessibilityLabel="Log in"
+        label="Create Account"
+        accessibilityLabel="Create Account"
         onPress={() => {}}
       />
     </Container>
