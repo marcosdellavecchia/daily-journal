@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
 
 import { Colors } from '../core/colors';
 import { Body2 } from '../core/typography';
@@ -72,7 +71,9 @@ export const Register: FunctionComponent = () => {
         />
       </InputContainer>
       <PrivacyDisclaimerContainer>
-        <Body2 style={{ textAlign: 'center' }}>
+        <Body2
+          style={{ textAlign: 'center', fontSize: 14, fontFamily: 'open-sans' }}
+        >
           By pressing "Create Account" you accept our privacy policy.
         </Body2>
       </PrivacyDisclaimerContainer>

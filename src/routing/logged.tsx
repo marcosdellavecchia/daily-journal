@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Platform } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -9,7 +8,9 @@ import {
 
 import { Journal } from '../screens/journal';
 import { Settings } from '../screens/settings';
+import { CreateNote } from '../screens/create-note';
 import { Colors } from '../core/colors';
+import { ViewNote } from '../screens/view-note';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,10 +38,9 @@ export const LoggedStack: FunctionComponent = () => {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor:
-            Platform.OS === 'ios' ? Colors.DARK_GRAY : Colors.ACCENT,
+          backgroundColor: Colors.DARK_GRAY,
         },
-        headerTintColor: Platform.OS === 'ios' ? Colors.WHITE : Colors.BLACK,
+        headerTintColor: Colors.WHITE,
         drawerActiveTintColor: `${Colors.ACCENT}`,
         drawerInactiveTintColor: `${Colors.WHITE}`,
         drawerStyle: {
@@ -52,6 +52,16 @@ export const LoggedStack: FunctionComponent = () => {
         name="Journal"
         component={Journal}
         options={{ title: 'Journal' }}
+      />
+      <Drawer.Screen
+        name="CreateNote"
+        component={CreateNote}
+        options={{ title: 'Create Note' }}
+      />
+      <Drawer.Screen
+        name="ViewNote"
+        component={ViewNote}
+        options={{ title: 'View Note' }}
       />
       <Drawer.Screen
         name="Settings"

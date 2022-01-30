@@ -8,7 +8,7 @@ export const H1 = styled.Text`
 `;
 
 export const H2 = styled.Text`
-  font-size: 28px;
+  font-size: 26px;
   font-family: 'open-sans-bold'
   color: ${Colors.WHITE};
 `;

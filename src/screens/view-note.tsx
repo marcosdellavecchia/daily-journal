@@ -1,18 +1,19 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
 import { Body1, H2 } from '../core/typography';
+import { SecondaryButton } from '../components/buttons';
 
 /*
  * Types
  */
 
-interface CreateNoteProps {
+interface ViewNoteProps {
   navigation: any;
+  route: any;
 }
 
 /*
@@ -31,8 +32,12 @@ const Container = styled.View`
  * Journal screen
  */
 
-export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
+export const ViewNote: FunctionComponent<ViewNoteProps> = ({
+  navigation,
+  route,
+}) => {
   const [notes, setNotes] = useState([]);
+  const { singleNote } = route.params;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -46,27 +51,21 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
     });
   };
 
-  const renderItem = ({ item, index }) => (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('ViewNote', {
-          singleNote: item,
-        });
-      }}
-    >
-      <Body1>{item}</Body1>
-    </TouchableOpacity>
-  );
+  const deleteNote = async () => {
+    const newNotes = await notes.filter((note) => note !== singleNote);
+    await AsyncStorage.setItem('NOTES', JSON.stringify(newNotes)).then(() =>
+      navigation.navigate('Journal'),
+    );
+  };
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => navigation.navigate('CreateNote')}>
-        <H2>Add new entry</H2>
-      </TouchableOpacity>
-      <FlatList
-        data={notes.reverse()}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => item.index}
+      <H2>View Entry</H2>
+      <Body1 style={{ fontSize: 22, margin: 20 }}>{singleNote}</Body1>
+      <SecondaryButton
+        label="Delete"
+        accessibilityLabel="Delete"
+        onPress={deleteNote}
       />
     </Container>
   );

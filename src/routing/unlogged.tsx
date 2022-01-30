@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Colors } from '../../src/core/colors';
@@ -19,10 +18,9 @@ export const UnloggedStack = () => {
       <Stack.Group
         screenOptions={{
           headerStyle: {
-            backgroundColor:
-              Platform.OS === 'ios' ? Colors.DARK_GRAY : Colors.ACCENT,
+            backgroundColor: Colors.DARK_GRAY,
           },
-          headerTintColor: Platform.OS === 'ios' ? Colors.WHITE : Colors.BLACK,
+          headerTintColor: Colors.WHITE,
           headerBackTitleVisible: false,
         }}
       >
