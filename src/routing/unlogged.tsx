@@ -7,7 +7,6 @@ import { Colors } from '../../src/core/colors';
 import { Home } from '../../src/screens/home';
 import { Login } from '../../src/screens/login';
 import { Register } from '../../src/screens/register';
-import { LoggedStack } from '../../src/routing/logged';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,6 @@ export const UnloggedStack = () => {
     <Stack.Navigator>
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="LoggedStack" component={LoggedStack} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{

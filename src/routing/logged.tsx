@@ -20,7 +20,10 @@ function CustomDrawerContent(props) {
       <DrawerItem
         label="Log out"
         onPress={() =>
-          props.navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+          props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'UnloggedStack' }],
+          })
         }
         inactiveTintColor={Colors.WHITE}
       />

@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { UnloggedStack } from './src/routing/unlogged';
+import { LoggedStack } from './src/routing/logged';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -32,6 +33,7 @@ export default function App() {
     <NavigationContainer>
       <MainStack.Navigator screenOptions={{ headerShown: false }}>
         <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
+        <MainStack.Screen name="LoggedStack" component={LoggedStack} />
       </MainStack.Navigator>
     </NavigationContainer>
   );
