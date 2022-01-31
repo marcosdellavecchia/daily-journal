@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import { Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
@@ -6,7 +7,6 @@ import { Colors } from '../core/colors';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
 import { getCurrentDate } from '../core/helpers';
-import { Dimensions } from 'react-native';
 
 /*
  * Constants

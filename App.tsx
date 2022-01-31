@@ -32,7 +32,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <MainStack.Navigator screenOptions={{ headerShown: false }}>
+      <MainStack.Navigator
+        screenOptions={{ presentation: 'modal', headerShown: false }}
+      >
         <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
         <MainStack.Screen name="LoggedStack" component={LoggedStack} />
         <MainStack.Screen name="NoteStack" component={NotesStack} />
