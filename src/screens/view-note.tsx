@@ -7,6 +7,13 @@ import { Colors } from '../core/colors';
 import { Body1 } from '../core/typography';
 import { SecondaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
+import { Dimensions } from 'react-native';
+
+/*
+ * Constants
+ */
+
+const { width, height } = Dimensions.get('screen');
 
 /*
  * Types
@@ -33,8 +40,8 @@ const SingleNoteContainer = styled.View`
   background-color: ${Colors.DARK_GRAY};
   margin: 8px;
   padding: 10px;
-  width: 90%;
-  height: 30%;
+  width: ${width * 0.9}px;
+  height: ${height * 0.3}px;
   border-radius: 8px;
 `;
 
