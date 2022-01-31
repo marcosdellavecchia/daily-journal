@@ -65,8 +65,11 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('ViewNote', {
-          singleNote: item,
+        navigation.navigate('NoteStack', {
+          screen: 'ViewNote',
+          params: {
+            singleNote: item,
+          },
         });
       }}
     >
@@ -86,7 +89,11 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
       <SecondaryButton
         label="Add new entry"
         accessibilityLabel="Add new entry"
-        onPress={() => navigation.navigate('CreateNote')}
+        onPress={() =>
+          navigation.navigate('NoteStack', {
+            screen: 'CreateNote',
+          })
+        }
         oversized
       />
     </Container>

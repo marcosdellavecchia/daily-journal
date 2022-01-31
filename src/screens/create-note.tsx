@@ -66,7 +66,7 @@ export const CreateNote: FunctionComponent<CreateNoteProps> = ({
     await AsyncStorage.setItem('NOTES', JSON.stringify(n)).then(() =>
       navigation.navigate('Journal'),
     );
-    setNote(`${noteDate} \n \n`);
+    // setNote(`${noteDate} \n \n`);
   };
 
   return (
