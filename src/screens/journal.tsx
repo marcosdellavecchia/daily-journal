@@ -6,8 +6,7 @@ import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
 import { Body1 } from '../core/typography';
-import { PrimaryButton, SecondaryButton } from '../components/buttons';
-
+import PlusIcon from '../../assets/icons/plus.svg';
 /*
  * Constants
  */
@@ -32,7 +31,6 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   padding-top: 15px;
-  padding-bottom: 60px;
 `;
 
 const NoteContainer = styled.View`
@@ -41,6 +39,17 @@ const NoteContainer = styled.View`
   margin-vertical: 8px;
   padding: 10px;
   border-radius: 8px;
+`;
+
+const CreateNoteButtonContainer = styled.TouchableOpacity`
+   position: absolute;
+   bottom: 40px;
+   right: 30px;
+   shadow-color: #000000;
+   shadow-offset: {width: 3, height: 3};
+   shadow-opacity: 0.5;
+   shadow-radius: 3px;
+   elevation: 5;
 `;
 
 /*
@@ -85,16 +94,17 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
         data={notes.reverse()}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
       />
-      <PrimaryButton
-        label="New entry"
-        accessibilityLabel="Add new entry"
+      <CreateNoteButtonContainer
         onPress={() =>
           navigation.navigate('NoteStack', {
             screen: 'CreateNote',
           })
         }
-      />
+      >
+        <PlusIcon width={50} height={50} fill={Colors.ACCENT} />
+      </CreateNoteButtonContainer>
     </Container>
   );
 };
