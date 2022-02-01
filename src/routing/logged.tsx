@@ -36,7 +36,8 @@ export const LoggedStack: FunctionComponent = () => {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.DARK_GRAY,
+          backgroundColor: Colors.BLACK,
+          shadowColor: 'transparent',
         },
         headerTintColor: Colors.WHITE,
         drawerActiveTintColor: `${Colors.ACCENT}`,
@@ -46,16 +47,8 @@ export const LoggedStack: FunctionComponent = () => {
         },
       }}
     >
-      <Drawer.Screen
-        name="Journal"
-        component={Journal}
-        options={{ title: 'Journal' }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={Settings}
-        options={{ title: 'Settings' }}
-      />
+      <Drawer.Screen name="Journal" component={Journal} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 };

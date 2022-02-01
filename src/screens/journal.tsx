@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
 import { Body1 } from '../core/typography';
-import { SecondaryButton } from '../components/buttons';
+import { PrimaryButton, SecondaryButton } from '../components/buttons';
 
 /*
  * Constants
@@ -31,8 +31,8 @@ const Container = styled.View`
   background-color: ${Colors.BLACK};
   align-items: center;
   justify-content: center;
-  padding-top: 25px;
-  padding-bottom: 50px;
+  padding-top: 15px;
+  padding-bottom: 60px;
 `;
 
 const NoteContainer = styled.View`
@@ -86,15 +86,14 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
-      <SecondaryButton
-        label="Add new entry"
+      <PrimaryButton
+        label="New entry"
         accessibilityLabel="Add new entry"
         onPress={() =>
           navigation.navigate('NoteStack', {
             screen: 'CreateNote',
           })
         }
-        oversized
       />
     </Container>
   );

@@ -14,6 +14,13 @@ import { getCurrentDate } from '../core/helpers';
 
 const { width, height } = Dimensions.get('screen');
 
+const noteDate: string = getCurrentDate();
+
+const noteTemplate: string = `${noteDate} 
+\n🙏 What am I grateful for?:  
+\n👏 What I've achieved yesterday? 
+\n💪 What I'd like to accomplish today?\n`;
+
 /*
  * Types
  */
@@ -56,8 +63,7 @@ const EntryTextField = styled.TextInput`
 export const CreateNote: FunctionComponent<CreateNoteProps> = ({
   navigation,
 }) => {
-  const noteDate = getCurrentDate();
-  const [note, setNote] = useState(`${noteDate} \n \n`);
+  const [note, setNote] = useState(`${noteTemplate}`);
 
   const saveNote = async () => {
     const value = await AsyncStorage.getItem('NOTES');
@@ -82,8 +88,8 @@ export const CreateNote: FunctionComponent<CreateNoteProps> = ({
       </EntryTextContainer>
       <Spacer />
       <PrimaryButton
-        label="Add new entry"
-        accessibilityLabel="Add new entry"
+        label="Add entry"
+        accessibilityLabel="Add entry"
         onPress={saveNote}
       />
     </Container>
