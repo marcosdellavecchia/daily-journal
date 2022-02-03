@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, useRef, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
@@ -60,14 +60,23 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
 }) => {
   const { singleNote } = route.params;
 
+  const editInputRef = useRef();
+
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(`${singleNote}`);
+  const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
       getNotes();
     }, []),
   );
+
+  useEffect(() => {
+    if (isEditModeEnabled) {
+      editInputRef.current.focus();
+    }
+  });
 
   const getNotes = () => {
     AsyncStorage.getItem('NOTES').then((notes) => {
@@ -93,6 +102,9 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
     // setNote(`${noteDate} \n \n`);
   };
 
+  const handleEditPress = () =>
+    isEditModeEnabled ? editNote() : setIsEditModeEnabled(true);
+
   return (
     <Container>
       <SingleNoteContainer>
@@ -100,15 +112,17 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
           value={currentNote}
           onChangeText={setCurrentNote}
           multiline={true}
-          autoFocus
           selectionColor={Colors.WHITE}
+          editable={isEditModeEnabled}
+          ref={editInputRef}
+          autoFocus
         />
       </SingleNoteContainer>
       <Spacer />
       <PrimaryButton
-        label="Edit"
-        accessibilityLabel="Edit"
-        onPress={editNote}
+        label={isEditModeEnabled ? 'Save' : 'Edit'}
+        accessibilityLabel={isEditModeEnabled ? 'Save' : 'Edit'}
+        onPress={handleEditPress}
       />
       <SecondaryButton
         label="Delete"
