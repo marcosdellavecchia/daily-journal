@@ -38,12 +38,15 @@ export default function App() {
       <MainStack.Navigator
         screenOptions={{
           headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       >
         <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
         <MainStack.Screen name="LoggedStack" component={LoggedStack} />
-        <MainStack.Screen name="NoteStack" component={NotesStack} />
+        <MainStack.Screen
+          name="NoteStack"
+          component={NotesStack}
+          options={{ presentation: 'modal' }}
+        />
       </MainStack.Navigator>
     </NavigationContainer>
   );
