@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import { Colors } from '../core/colors';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
-import { gratitudeTemplate } from '../data/note-templates';
+import { freeTemplate } from '../data/note-templates';
 
 /*
  * Constants
@@ -56,7 +56,7 @@ const EntryTextField = styled.TextInput`
 export const CreateNote: FunctionComponent<CreateNoteProps> = ({
   navigation,
 }) => {
-  const [note, setNote] = useState(`${gratitudeTemplate}`);
+  const [note, setNote] = useState(`${freeTemplate}`);
 
   const saveNote = async () => {
     const value = await AsyncStorage.getItem('NOTES');

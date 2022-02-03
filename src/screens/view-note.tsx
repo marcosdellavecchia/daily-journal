@@ -4,8 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
 
 import { Colors } from '../core/colors';
-import { Body1 } from '../core/typography';
-import { SecondaryButton } from '../components/buttons';
+import { PrimaryButton, SecondaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
 import { Dimensions } from 'react-native';
 
@@ -36,12 +35,18 @@ const Container = styled.View`
   padding-top: 25px;
 `;
 
+const SingleNoteTextField = styled.TextInput`
+  color: ${Colors.WHITE};
+  font-size: 14px;
+  font-family: 'open-sans';
+`;
+
 const SingleNoteContainer = styled.View`
   background-color: ${Colors.DARK_GRAY};
   margin: 8px;
   padding: 10px;
   width: ${width * 0.9}px;
-  height: ${height * 0.3}px;
+  height: ${height * 0.23}px;
   border-radius: 8px;
 `;
 
@@ -53,8 +58,10 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
   navigation,
   route,
 }) => {
-  const [notes, setNotes] = useState([]);
   const { singleNote } = route.params;
+
+  const [notes, setNotes] = useState([]);
+  const [currentNote, setCurrentNote] = useState(`${singleNote}`);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -75,12 +82,34 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
     );
   };
 
+  const editNote = async () => {
+    const value = await AsyncStorage.getItem('NOTES');
+    const parsedValue = value ? JSON.parse(value) : [];
+    const editedNoteIndex = parsedValue?.indexOf(singleNote);
+    parsedValue[editedNoteIndex] = currentNote;
+    await AsyncStorage.setItem('NOTES', JSON.stringify(parsedValue)).then(() =>
+      navigation.navigate('Journal'),
+    );
+    // setNote(`${noteDate} \n \n`);
+  };
+
   return (
     <Container>
       <SingleNoteContainer>
-        <Body1>{singleNote}</Body1>
+        <SingleNoteTextField
+          value={currentNote}
+          onChangeText={setCurrentNote}
+          multiline={true}
+          autoFocus
+          selectionColor={Colors.WHITE}
+        />
       </SingleNoteContainer>
       <Spacer />
+      <PrimaryButton
+        label="Edit"
+        accessibilityLabel="Edit"
+        onPress={editNote}
+      />
       <SecondaryButton
         label="Delete"
         accessibilityLabel="Delete"
