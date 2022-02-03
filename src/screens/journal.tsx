@@ -7,6 +7,8 @@ import styled from 'styled-components/native';
 import { Colors } from '../core/colors';
 import { Body1 } from '../core/typography';
 import PlusIcon from '../../assets/icons/plus.svg';
+import { EmptyNoteMessage } from '../components/empty-note-message';
+
 /*
  * Constants
  */
@@ -43,8 +45,8 @@ const NoteContainer = styled.View`
 
 const CreateNoteButtonContainer = styled.TouchableOpacity`
    position: absolute;
-   bottom: 40px;
-   right: 30px;
+   bottom: 10%;
+   right: 10%;
    shadow-color: #000000;
    shadow-offset: {width: 3, height: 3};
    shadow-opacity: 0.5;
@@ -90,12 +92,16 @@ export const Journal: FunctionComponent<CreateNoteProps> = ({ navigation }) => {
 
   return (
     <Container>
-      <FlatList
-        data={notes.reverse()}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-      />
+      {notes.length === 0 ? (
+        <EmptyNoteMessage />
+      ) : (
+        <FlatList
+          data={notes.reverse()}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
       <CreateNoteButtonContainer
         onPress={() =>
           navigation.navigate('NoteStack', {

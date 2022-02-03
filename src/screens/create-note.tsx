@@ -6,20 +6,13 @@ import styled from 'styled-components/native';
 import { Colors } from '../core/colors';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
-import { getCurrentDate } from '../core/helpers';
+import { gratitudeTemplate } from '../data/note-templates';
 
 /*
  * Constants
  */
 
 const { width, height } = Dimensions.get('screen');
-
-const noteDate: string = getCurrentDate();
-
-const noteTemplate: string = `${noteDate} 
-\n🙏 What am I grateful for?:  
-\n👏 What I've achieved yesterday? 
-\n💪 What I'd like to accomplish today?\n`;
 
 /*
  * Types
@@ -63,7 +56,7 @@ const EntryTextField = styled.TextInput`
 export const CreateNote: FunctionComponent<CreateNoteProps> = ({
   navigation,
 }) => {
-  const [note, setNote] = useState(`${noteTemplate}`);
+  const [note, setNote] = useState(`${gratitudeTemplate}`);
 
   const saveNote = async () => {
     const value = await AsyncStorage.getItem('NOTES');
