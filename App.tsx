@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
 import { UnloggedStack } from './src/routing/unlogged';
 import { LoggedStack } from './src/routing/logged';
@@ -16,7 +19,7 @@ const fetchFonts = () => {
   });
 };
 
-const MainStack = createNativeStackNavigator();
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -33,7 +36,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <MainStack.Navigator
-        screenOptions={{ presentation: 'modal', headerShown: false }}
+        screenOptions={{
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
       >
         <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
         <MainStack.Screen name="LoggedStack" component={LoggedStack} />

@@ -1,11 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 
 import { CreateNote } from '../screens/create-note';
 import { ViewNote } from '../screens/view-note';
 import { Colors } from '../core/colors';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export const NotesStack: FunctionComponent = () => {
   return (
@@ -14,6 +17,7 @@ export const NotesStack: FunctionComponent = () => {
         headerStyle: {
           backgroundColor: Colors.DARK_GRAY,
         },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerTintColor: Colors.WHITE,
         headerBackTitleVisible: false,
       }}

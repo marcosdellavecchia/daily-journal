@@ -44,14 +44,14 @@ const NoteContainer = styled.View`
 `;
 
 const CreateNoteButtonContainer = styled.TouchableOpacity`
-   position: absolute;
-   bottom: 10%;
-   right: 10%;
-   shadow-color: #000000;
-   shadow-offset: {width: 3, height: 3};
-   shadow-opacity: 0.5;
-   shadow-radius: 3px;
-   elevation: 5;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  shadow-color: black;
+  shadow-offset: 3px 3px;
+  shadow-opacity: 0.5;
+  shadow-radius: 3px;
+  elevation: 5;
 `;
 
 /*
