@@ -60,7 +60,7 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
 }) => {
   const { singleNote } = route.params;
 
-  const editInputRef = useRef();
+  const editInputRef = useRef<any>();
 
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(`${singleNote}`);
@@ -124,11 +124,13 @@ export const ViewNote: FunctionComponent<ViewNoteProps> = ({
         accessibilityLabel={isEditModeEnabled ? 'Save' : 'Edit'}
         onPress={handleEditPress}
       />
-      <SecondaryButton
-        label="Delete"
-        accessibilityLabel="Delete"
-        onPress={deleteNote}
-      />
+      {!isEditModeEnabled && (
+        <SecondaryButton
+          label="Delete"
+          accessibilityLabel="Delete"
+          onPress={deleteNote}
+        />
+      )}
     </Container>
   );
 };
