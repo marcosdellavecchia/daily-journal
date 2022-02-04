@@ -1,10 +1,13 @@
 import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { Colors } from '../core/colors';
 import { Body2 } from '../core/typography';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
+
+const auth = getAuth();
 
 /*
  * Styled components
@@ -35,7 +38,6 @@ const Input = styled.TextInput`
   flex: 1;
   height: 50px;
   padding: 10px;
-  margin-left: 20px;
   color: ${Colors.WHITE};
 `;
 
@@ -44,12 +46,45 @@ const PrivacyDisclaimerContainer = styled.TouchableOpacity`
 `;
 
 /*
+ * Types
+ */
+
+interface RegisterScreenProps {
+  navigation: any;
+}
+
+/*
  * Register screen
  */
 
-export const Register: FunctionComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export const Register: FunctionComponent<RegisterScreenProps> = ({
+  navigation,
+}) => {
+  const [value, setValue] = useState({
+    email: '',
+    password: '',
+    error: '',
+  });
+
+  async function signUp() {
+    if (value.email === '' || value.password === '') {
+      setValue({
+        ...value,
+        error: 'Email and password are mandatory.',
+      });
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, value.email, value.password);
+      navigation.navigate('Login');
+    } catch (error: any) {
+      setValue({
+        ...value,
+        error: error.message,
+      });
+    }
+  }
 
   return (
     <Container>
@@ -59,15 +94,17 @@ export const Register: FunctionComponent = () => {
         <Input
           placeholder="Your email"
           placeholderTextColor={Colors.WHITE}
-          onChangeText={(email) => setEmail(email)}
+          value={value.email}
+          onChangeText={(text) => setValue({ ...value, email: text })}
         />
       </InputContainer>
       <InputContainer>
         <Input
           placeholder="Your password"
           placeholderTextColor={Colors.WHITE}
+          value={value.password}
+          onChangeText={(text) => setValue({ ...value, password: text })}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
         />
       </InputContainer>
       <PrivacyDisclaimerContainer>
@@ -77,11 +114,13 @@ export const Register: FunctionComponent = () => {
           By pressing "Create Account" you accept our privacy policy.
         </Body2>
       </PrivacyDisclaimerContainer>
+      <Spacer size="s" />
+      <Body2>{!!value.error ? value.error : ' '}</Body2>
       <Spacer size="l" />
       <PrimaryButton
         label="Create Account"
         accessibilityLabel="Create Account"
-        onPress={() => {}}
+        onPress={signUp}
       />
     </Container>
   );

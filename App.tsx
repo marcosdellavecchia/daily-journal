@@ -1,13 +1,12 @@
 import 'react-native-gesture-handler';
+import './src/config/firebase';
 import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { UnloggedStack } from './src/routing/unlogged';
-import { LoggedStack } from './src/routing/logged';
-import { NotesStack } from './src/routing/notes';
+import { RootNavigation } from './src/routing';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -32,19 +31,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <MainStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <MainStack.Screen name="UnloggedStack" component={UnloggedStack} />
-        <MainStack.Screen name="LoggedStack" component={LoggedStack} />
-        <MainStack.Screen
-          name="NoteStack"
-          component={NotesStack}
-          options={{ presentation: 'modal' }}
-        />
-      </MainStack.Navigator>
+      <RootNavigation />
     </NavigationContainer>
   );
 }

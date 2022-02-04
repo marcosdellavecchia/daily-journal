@@ -1,11 +1,14 @@
 import React, { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { Colors } from '../core/colors';
 import { Body2 } from '../core/typography';
 import { PrimaryButton } from '../components/buttons';
 import { Spacer } from '../components/spacer';
+
+const auth = getAuth();
 
 /*
  * Styled components
@@ -36,7 +39,6 @@ const Input = styled.TextInput`
   flex: 1;
   height: 50px;
   padding: 10px;
-  margin-left: 20px;
   color: ${Colors.WHITE};
 `;
 
@@ -45,8 +47,30 @@ const Input = styled.TextInput`
  */
 
 export const Login: FunctionComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [value, setValue] = React.useState({
+    email: '',
+    password: '',
+    error: '',
+  });
+
+  async function signIn() {
+    if (value.email === '' || value.password === '') {
+      setValue({
+        ...value,
+        error: 'Email and password are mandatory.',
+      });
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, value.email, value.password);
+    } catch (error: any) {
+      setValue({
+        ...value,
+        error: error.message,
+      });
+    }
+  }
 
   return (
     <Container>
@@ -56,25 +80,29 @@ export const Login: FunctionComponent = () => {
         <Input
           placeholder="Your email"
           placeholderTextColor={Colors.WHITE}
-          onChangeText={(email) => setEmail(email)}
+          value={value.email}
+          onChangeText={(text) => setValue({ ...value, email: text })}
         />
       </InputContainer>
       <InputContainer>
         <Input
           placeholder="Your password"
           placeholderTextColor={Colors.WHITE}
+          value={value.password}
+          onChangeText={(text) => setValue({ ...value, password: text })}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
         />
       </InputContainer>
       <TouchableOpacity>
         <Body2>Forgot Password?</Body2>
       </TouchableOpacity>
+      <Spacer size="s" />
+      <Body2>{!!value.error ? value.error : ' '}</Body2>
       <Spacer size="l" />
       <PrimaryButton
         label="Log in"
         accessibilityLabel="Log in"
-        onPress={() => {}}
+        onPress={signIn}
       />
     </Container>
   );

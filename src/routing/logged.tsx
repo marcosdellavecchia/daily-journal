@@ -5,10 +5,13 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import { getAuth, signOut } from 'firebase/auth';
 
 import { Journal } from '../screens/journal';
 import { Settings } from '../screens/settings';
 import { Colors } from '../core/colors';
+
+const auth = getAuth();
 
 const Drawer = createDrawerNavigator();
 
@@ -18,12 +21,7 @@ function CustomDrawerContent(props) {
       <DrawerItemList {...props} />
       <DrawerItem
         label="Log out"
-        onPress={() =>
-          props.navigation.reset({
-            index: 0,
-            routes: [{ name: 'UnloggedStack' }],
-          })
-        }
+        onPress={() => signOut(auth)}
         inactiveTintColor={Colors.WHITE}
       />
     </DrawerContentScrollView>
