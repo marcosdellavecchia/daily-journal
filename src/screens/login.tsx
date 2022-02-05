@@ -1,6 +1,11 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
+import {
+  Keyboard,
+  Platform,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { Colors } from '../core/colors';
@@ -14,7 +19,7 @@ const auth = getAuth();
  * Styled components
  */
 
-const Container = styled.View`
+const KeyboardAvoidingContainer = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: ${Colors.BLACK};
   align-items: center;
@@ -39,6 +44,8 @@ const Input = styled.TextInput`
   flex: 1;
   height: 50px;
   padding: 10px;
+  width: 100%;
+  text-align: center;
   color: ${Colors.WHITE};
 `;
 
@@ -73,37 +80,41 @@ export const Login: FunctionComponent = () => {
   }
 
   return (
-    <Container>
-      <HomeImage source={require('../../assets/images/home-logo.webp')} />
-      <Spacer />
-      <InputContainer>
-        <Input
-          placeholder="Your email"
-          placeholderTextColor={Colors.WHITE}
-          value={value.email}
-          onChangeText={(text) => setValue({ ...value, email: text })}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingContainer
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <HomeImage source={require('../../assets/images/home-logo.webp')} />
+        <Spacer />
+        <InputContainer>
+          <Input
+            placeholder="Your email"
+            placeholderTextColor={Colors.WHITE}
+            value={value.email}
+            onChangeText={(text) => setValue({ ...value, email: text })}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Input
+            placeholder="Your password"
+            placeholderTextColor={Colors.WHITE}
+            value={value.password}
+            onChangeText={(text) => setValue({ ...value, password: text })}
+            secureTextEntry={true}
+          />
+        </InputContainer>
+        <TouchableOpacity>
+          <Body2>Forgot Password?</Body2>
+        </TouchableOpacity>
+        <Spacer size="s" />
+        <Body2>{!!value.error ? value.error : ' '}</Body2>
+        <Spacer />
+        <PrimaryButton
+          label="Log in"
+          accessibilityLabel="Log in"
+          onPress={signIn}
         />
-      </InputContainer>
-      <InputContainer>
-        <Input
-          placeholder="Your password"
-          placeholderTextColor={Colors.WHITE}
-          value={value.password}
-          onChangeText={(text) => setValue({ ...value, password: text })}
-          secureTextEntry={true}
-        />
-      </InputContainer>
-      <TouchableOpacity>
-        <Body2>Forgot Password?</Body2>
-      </TouchableOpacity>
-      <Spacer size="s" />
-      <Body2>{!!value.error ? value.error : ' '}</Body2>
-      <Spacer size="l" />
-      <PrimaryButton
-        label="Log in"
-        accessibilityLabel="Log in"
-        onPress={signIn}
-      />
-    </Container>
+      </KeyboardAvoidingContainer>
+    </TouchableWithoutFeedback>
   );
 };

@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import { Keyboard, Platform, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -13,7 +14,7 @@ const auth = getAuth();
  * Styled components
  */
 
-const Container = styled.View`
+const KeyboardAvoidingContainer = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: ${Colors.BLACK};
   align-items: center;
@@ -38,6 +39,8 @@ const Input = styled.TextInput`
   flex: 1;
   height: 50px;
   padding: 10px;
+  width: 100%;
+  text-align: center;
   color: ${Colors.WHITE};
 `;
 
@@ -87,41 +90,47 @@ export const Register: FunctionComponent<RegisterScreenProps> = ({
   }
 
   return (
-    <Container>
-      <HomeImage source={require('../../assets/images/home-logo.webp')} />
-      <Spacer />
-      <InputContainer>
-        <Input
-          placeholder="Your email"
-          placeholderTextColor={Colors.WHITE}
-          value={value.email}
-          onChangeText={(text) => setValue({ ...value, email: text })}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingContainer
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <HomeImage source={require('../../assets/images/home-logo.webp')} />
+        <Spacer />
+        <InputContainer>
+          <Input
+            placeholder="Your email"
+            placeholderTextColor={Colors.WHITE}
+            value={value.email}
+            onChangeText={(text) => setValue({ ...value, email: text })}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Input
+            placeholder="Your password"
+            placeholderTextColor={Colors.WHITE}
+            value={value.password}
+            onChangeText={(text) => setValue({ ...value, password: text })}
+            secureTextEntry={true}
+          />
+        </InputContainer>
+        <PrivacyDisclaimerContainer>
+          <Body2
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            By pressing "Create Account" you accept our privacy policy.
+          </Body2>
+        </PrivacyDisclaimerContainer>
+        <Spacer size="s" />
+        <Body2>{!!value.error ? value.error : ' '}</Body2>
+        <Spacer />
+        <PrimaryButton
+          label="Create Account"
+          accessibilityLabel="Create Account"
+          onPress={signUp}
         />
-      </InputContainer>
-      <InputContainer>
-        <Input
-          placeholder="Your password"
-          placeholderTextColor={Colors.WHITE}
-          value={value.password}
-          onChangeText={(text) => setValue({ ...value, password: text })}
-          secureTextEntry={true}
-        />
-      </InputContainer>
-      <PrivacyDisclaimerContainer>
-        <Body2
-          style={{ textAlign: 'center', fontSize: 14, fontFamily: 'open-sans' }}
-        >
-          By pressing "Create Account" you accept our privacy policy.
-        </Body2>
-      </PrivacyDisclaimerContainer>
-      <Spacer size="s" />
-      <Body2>{!!value.error ? value.error : ' '}</Body2>
-      <Spacer size="l" />
-      <PrimaryButton
-        label="Create Account"
-        accessibilityLabel="Create Account"
-        onPress={signUp}
-      />
-    </Container>
+      </KeyboardAvoidingContainer>
+    </TouchableWithoutFeedback>
   );
 };
